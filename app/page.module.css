@@ -127,3 +127,92 @@
   opacity: 0.7;
   cursor: not-allowed;
 }
+
+.qrContainer {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  padding: 24px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+}
+
+.invoiceActions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.cashAppButton {
+  width: 100%;
+  background: #00D632;
+  color: #000;
+  border: none;
+  border-radius: 16px;
+  padding: 18px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cashAppButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 214, 50, 0.4);
+}
+
+.secondaryButton {
+  background-color: #252d38;
+  color: #e2e8f0;
+  border: 2px solid #334155;
+  border-radius: 16px;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.secondaryButton:hover {
+  background-color: #2d3748;
+  border-color: #475569;
+}
+
+.invoiceText {
+  background-color: #252d38;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.invoiceLabel {
+  color: #94a3b8;
+  font-size: 14px;
+  margin: 0 0 8px 0;
+}
+
+.invoiceValue {
+  color: #e2e8f0;
+  font-size: 12px;
+  word-break: break-all;
+  margin: 0;
+}
+
+.backButton {
+  width: 100%;
+  background-color: transparent;
+  color: #94a3b8;
+  border: 2px solid #334155;
+  border-radius: 16px;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.backButton:hover {
+  background-color: #252d38;
+  border-color: #475569;
+}
