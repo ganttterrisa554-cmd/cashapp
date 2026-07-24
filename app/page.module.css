@@ -1,0 +1,129 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0c0f12;
+  padding: 20px;
+}
+
+.card {
+  background-color: #1a1f26;
+  border-radius: 24px;
+  padding: 32px;
+  width: 100%;
+  max-width: 480px;
+  border: 1px solid #2a313a;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+}
+
+.badge {
+  display: inline-block;
+  background-color: #154734;
+  color: #10b981;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.method {
+  color: #94a3b8;
+  font-size: 15px;
+  margin: 0;
+}
+
+.amountGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.amountButton {
+  background-color: #252d38;
+  color: #e2e8f0;
+  border: 2px solid #334155;
+  border-radius: 16px;
+  padding: 16px 12px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.amountButton:hover {
+  transform: scale(1.05);
+  background-color: #2d3748;
+  border-color: #475569;
+}
+
+.amountButton.active {
+  background-color: #154734;
+  border-color: #10b981;
+  color: #10b981;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+}
+
+.customInput {
+  width: 100%;
+  background-color: #252d38;
+  color: #e2e8f0;
+  border: 2px solid #334155;
+  border-radius: 16px;
+  padding: 16px 20px;
+  font-size: 18px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.customInput:focus {
+  border-color: #475569;
+}
+
+.error {
+  background-color: #450a0a;
+  color: #f87171;
+  padding: 14px 18px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  text-align: center;
+}
+
+.payButton {
+  width: 100%;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 16px;
+  padding: 18px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.payButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+}
+
+.payButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
