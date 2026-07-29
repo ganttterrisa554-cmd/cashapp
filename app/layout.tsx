@@ -18,7 +18,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.png" type="image/png" />
       </head>
-      <body style={{ margin: 0, padding: 0, backgroundColor: '#0c0f12' }}>
+      <body style={{ margin: 0, padding: 0, backgroundColor: '#ebebeb' }}>
         {children}
       </body>
     </html>
