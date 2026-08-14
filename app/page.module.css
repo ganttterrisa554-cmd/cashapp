@@ -1,0 +1,284 @@
+.container {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  background-color: #ebebeb;
+  padding: 24px 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto,
+    Helvetica, Arial, sans-serif;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 18px;
+  padding: 32px 30px 22px;
+  width: 100%;
+  max-width: 450px;
+  margin: auto;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  animation: fadeUp 0.35s 0.05s both;
+}
+
+.handle {
+  display: none;
+  width: 40px;
+  height: 4px;
+  border-radius: 999px;
+  background-color: #d9d9d9;
+  margin: 0 auto 16px;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUpSheet {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.header {
+  text-align: center;
+}
+
+.title {
+  font-size: 27px;
+  font-weight: 800;
+  color: #000000;
+  letter-spacing: -0.4px;
+  margin: 0 0 6px;
+}
+
+.badge {
+  display: block;
+  color: #00c244;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.method {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ededed;
+}
+
+.methodIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background-color: #00c244;
+  color: #ffffff;
+  font-size: 25px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.methodName {
+  font-size: 17px;
+  font-weight: 700;
+  color: #000000;
+  margin: 0;
+}
+
+.methodSub {
+  font-size: 13px;
+  color: #8a8a8a;
+  margin: 2px 0 0;
+}
+
+.sectionLabel {
+  color: #00c244;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  margin: 18px 0 12px;
+}
+
+.amountGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 11px;
+  margin-bottom: 14px;
+}
+
+.amountButton {
+  background-color: #ffffff;
+  color: #111111;
+  border: 1px solid #e2e2e2;
+  border-radius: 11px;
+  padding: 15px 8px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.amountButton:hover {
+  border-color: #00c244;
+  transform: translateY(-1px);
+}
+
+.amountButton.active {
+  background-color: #00c244;
+  border-color: #00c244;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 194, 68, 0.3);
+}
+
+.inputWrap {
+  position: relative;
+  margin-bottom: 18px;
+}
+
+.inputPrefix {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #b3b3b3;
+  font-size: 15px;
+  pointer-events: none;
+}
+
+.customInput {
+  width: 100%;
+  background-color: #ffffff;
+  color: #111111;
+  border: 1px solid #e2e2e2;
+  border-radius: 11px;
+  padding: 15px 18px 15px 34px;
+  font-size: 15px;
+  font-family: inherit;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.18s ease;
+}
+
+.customInput::placeholder {
+  color: #b3b3b3;
+}
+
+.customInput:focus {
+  border-color: #00c244;
+}
+
+.error {
+  background-color: #fdecec;
+  color: #d93025;
+  padding: 12px 16px;
+  border-radius: 11px;
+  margin: 0 0 16px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.payButton {
+  width: 100%;
+  padding: 18px;
+  background: #00c244;
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  font-size: 17px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 194, 68, 0.38);
+  transition: all 0.25s ease;
+}
+
+.payButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 26px rgba(0, 194, 68, 0.45);
+}
+
+.payButton:disabled {
+  opacity: 0.72;
+  cursor: not-allowed;
+}
+
+.fallbackLink {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 16px;
+  background: #111111;
+  color: #ffffff;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.footer {
+  text-align: center;
+  color: #a5a5a5;
+  font-size: 12px;
+  margin: 18px 0 0;
+}
+
+.footerBrand {
+  color: #00c244;
+  font-weight: 700;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .handle {
+    display: block;
+  }
+
+  .card {
+    max-width: none;
+    margin: auto 0 0;
+    padding: 12px 20px calc(18px + env(safe-area-inset-bottom));
+    border-radius: 22px 22px 0 0;
+    box-shadow: 0 -6px 28px rgba(0, 0, 0, 0.16);
+    animation: slideUpSheet 0.32s cubic-bezier(0.32, 0.72, 0, 1) both;
+  }
+
+  .title {
+    font-size: 23px;
+  }
+
+  .amountGrid {
+    gap: 9px;
+  }
+
+  .amountButton {
+    padding: 13px 4px;
+    font-size: 14px;
+  }
+
+  .payButton {
+    padding: 16px;
+    font-size: 16px;
+  }
+}
