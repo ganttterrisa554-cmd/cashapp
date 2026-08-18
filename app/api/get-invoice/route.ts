@@ -2,6 +2,15 @@ import { NextRequest } from "next/server";
 
 interface RequestBody {
   amount: number;
+  destination?: string;
+}
+
+function resolveWosUsername(destination: string | undefined): string | undefined {
+  if (destination === 'pay') {
+    return process.env.WOS_USERNAME_PAY || 'brainygrip14';
+  }
+
+  return process.env.WOS_USERNAME;
 }
 
 interface LnurlpResponse {
@@ -67,13 +76,13 @@ async function fetchBtcPrice(): Promise<number> {
 
 export async function POST(request: NextRequest) {
   try {
-    const { amount }: RequestBody = await request.json();
+    const { amount, destination }: RequestBody = await request.json();
 
     if (!amount || typeof amount !== "number" || amount <= 0) {
       return Response.json({ error: "Invalid amount" }, { status: 400 });
     }
 
-    const wosUsername = process.env.WOS_USERNAME;
+    const wosUsername = resolveWosUsername(destination);
     if (!wosUsername) {
       return Response.json(
         { error: "WOS_USERNAME not configured" },
