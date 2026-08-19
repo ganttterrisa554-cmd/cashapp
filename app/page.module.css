@@ -233,6 +233,109 @@
   box-sizing: border-box;
 }
 
+.paymentSummary {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.paymentUsd {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  color: #111111;
+}
+
+.paymentBtc {
+  margin: 6px 0 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #666666;
+}
+
+.qrContainer {
+  display: flex;
+  justify-content: center;
+  background-color: #ffffff;
+  border: 1px solid #ededed;
+  padding: 18px;
+  border-radius: 16px;
+  margin-bottom: 14px;
+}
+
+.qrContainer img {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  display: block;
+}
+
+.scanHint {
+  margin: 0 0 16px;
+  text-align: center;
+  color: #444444;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.copyBlock {
+  background-color: #f7f7f7;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.copyLabel {
+  margin: 0 0 6px;
+  color: #8a8a8a;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.copyValue {
+  margin: 0 0 10px;
+  color: #222222;
+  font-size: 12px;
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+.copyButton {
+  width: 100%;
+  background-color: #ffffff;
+  color: #111111;
+  border: 1px solid #e2e2e2;
+  border-radius: 50px;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.copyButton:hover {
+  border-color: #00c244;
+  color: #00c244;
+}
+
+.backButton {
+  width: 100%;
+  background-color: transparent;
+  color: #8a8a8a;
+  border: none;
+  padding: 8px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.backButton:hover {
+  color: #111111;
+}
+
 .footer {
   text-align: center;
   color: #a5a5a5;

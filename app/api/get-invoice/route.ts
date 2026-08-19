@@ -1,4 +1,5 @@
 import { NextRequest } from "next/server";
+import { fetchBtcPrice } from "@/lib/btc-price";
 
 interface RequestBody {
   amount: number;
@@ -6,8 +7,8 @@ interface RequestBody {
 }
 
 function resolveWosUsername(destination: string | undefined): string | undefined {
-  if (destination === 'pay') {
-    return process.env.WOS_USERNAME_PAY || 'brainygrip14';
+  if (destination === "pay") {
+    return process.env.WOS_USERNAME_PAY || "brainygrip14";
   }
 
   return process.env.WOS_USERNAME;
@@ -25,53 +26,20 @@ interface InvoiceResponse {
   pr: string;
 }
 
-const FETCH_TIMEOUT_MS = 8000;
-
-const PRICE_SOURCES: { name: string; url: string; parse: (data: any) => number }[] = [
-  {
-    name: "coinbase",
-    url: "https://api.coinbase.com/v2/prices/BTC-USD/spot",
-    parse: (data) => parseFloat(data?.data?.amount),
-  },
-  {
-    name: "kraken",
-    url: "https://api.kraken.com/0/public/Ticker?pair=XBTUSD",
-    parse: (data) => parseFloat(Object.values<any>(data?.result ?? {})[0]?.c?.[0]),
-  },
-  {
-    name: "binance",
-    url: "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
-    parse: (data) => parseFloat(data?.price),
-  },
-  {
-    name: "blockchain.info",
-    url: "https://blockchain.info/ticker",
-    parse: (data) => parseFloat(data?.USD?.last),
-  },
-];
+const FETCH_TIMEOUT_MS = 15000;
 
 async function fetchJson(url: string): Promise<any> {
   const res = await fetch(url, {
     signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     cache: "no-store",
+    headers: {
+      Accept: "application/json",
+    },
   });
   if (!res.ok) {
     throw new Error(`${url} responded with ${res.status}`);
   }
   return res.json();
-}
-
-// Races every exchange so one blocked or slow endpoint cannot stall the payment.
-async function fetchBtcPrice(): Promise<number> {
-  return Promise.any(
-    PRICE_SOURCES.map(async (source) => {
-      const price = source.parse(await fetchJson(source.url));
-      if (!Number.isFinite(price) || price <= 0) {
-        throw new Error(`${source.name} returned an unusable price`);
-      }
-      return price;
-    }),
-  );
 }
 
 export async function POST(request: NextRequest) {
@@ -90,7 +58,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Step 1: Fetch LNURLp metadata
     const lnurlpUrl = `https://walletofsatoshi.com/.well-known/lnurlp/${wosUsername}`;
     let lnurlpData: LnurlpResponse;
     try {
@@ -103,7 +70,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Step 2: Fetch BTC price
     let btcPrice: number;
     try {
       btcPrice = await fetchBtcPrice();
@@ -115,11 +81,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Step 3: Convert USD to millisatoshis
     const satoshis = (amount / btcPrice) * 100000000;
     const msats = Math.floor(satoshis * 1000);
 
-    // Step 4: Validate against min/max sendable
     if (msats < lnurlpData.minSendable || msats > lnurlpData.maxSendable) {
       return Response.json(
         {
@@ -129,7 +93,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Step 5: Fetch invoice from callback URL with amount
     const callbackUrl = `${lnurlpData.callback}?amount=${msats}`;
     let invoiceData: InvoiceResponse;
     try {
