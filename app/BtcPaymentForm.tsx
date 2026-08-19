@@ -15,7 +15,7 @@ interface ErrorResponse {
   error: string;
 }
 
-export default function BtcPaymentForm({ title = 'Pay securely' }: { title?: string }) {
+export default function BtcPaymentForm({ title = 'Pay' }: { title?: string }) {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<string>('');
   const [error, setError] = useState<string>('');
@@ -134,10 +134,10 @@ export default function BtcPaymentForm({ title = 'Pay securely' }: { title?: str
         </div>
 
         <div className={styles.method}>
-          <div className={styles.methodIcon}>₿</div>
+          <div className={styles.methodIcon}>$</div>
           <div>
             <p className={styles.methodName}>CashApp</p>
-            <p className={styles.methodSub}>Bitcoin</p>
+            <p className={styles.methodSub}>Instant</p>
           </div>
         </div>
 
@@ -175,7 +175,7 @@ export default function BtcPaymentForm({ title = 'Pay securely' }: { title?: str
         )}
 
         <button className={styles.payButton} onClick={handlePayNow} disabled={isProcessing}>
-          {isProcessing ? 'Processing...' : '🔒 Pay Now →'}
+          {isProcessing ? 'Processing...' : '🔒 Pay →'}
         </button>
 
         {walletHref && (

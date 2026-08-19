@@ -1,9 +1,9 @@
 import BtcPaymentForm from '../BtcPaymentForm';
 
 export const metadata = {
-  title: 'Pay securely',
+  title: 'Pay',
 };
 
 export default function PaidPage() {
-  return <BtcPaymentForm title="Pay securely" />;
+  return <BtcPaymentForm title="Pay" />;
 }
