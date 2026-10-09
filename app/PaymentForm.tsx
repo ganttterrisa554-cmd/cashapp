@@ -1,19 +1,12 @@
 'use client';
 
 import { useEffect, useRef, useState, type ChangeEvent } from 'react';
+import { getInvoice, PaymentError } from '@/lib/payments';
 import styles from './page.module.css';
 
 const presetAmounts = [50, 75, 100, 150, 200, 250, 300, 500, 750];
 const FETCH_TIMEOUT_MS = 15000;
 const REDIRECT_FALLBACK_MS = 2000;
-
-interface InvoiceResponse {
-  pr: string;
-}
-
-interface ErrorResponse {
-  error: string;
-}
 
 function cashAppUrl(invoice: string) {
   return `https://cash.app/launch/lightning/${invoice}`;
@@ -84,34 +77,13 @@ export default function PaymentForm({
     const timeoutId = window.setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 
     try {
-      const res = await fetch('/api/get-invoice', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount, destination }),
-        signal: controller.signal,
-      });
-
-      const data: InvoiceResponse | ErrorResponse = await res.json();
+      const pr = await getInvoice(amount, destination, controller.signal);
 
       if (requestId !== requestIdRef.current) {
         return;
       }
 
-      if (!res.ok) {
-        const errData = data as ErrorResponse;
-        setError(errData.error || 'Something went wrong');
-        setIsProcessing(false);
-        return;
-      }
-
-      const invData = data as InvoiceResponse;
-      if (!invData.pr) {
-        setError('Could not generate the invoice. Please try again.');
-        setIsProcessing(false);
-        return;
-      }
-
-      const href = cashAppUrl(invData.pr);
+      const href = cashAppUrl(pr);
       window.location.assign(href);
 
       fallbackTimerRef.current = window.setTimeout(() => {
@@ -127,7 +99,13 @@ export default function PaymentForm({
         return;
       }
       const timedOut = err instanceof DOMException && err.name === 'AbortError';
-      setError(timedOut ? 'Taking too long. Please try again.' : 'Failed to generate invoice');
+      const message =
+        err instanceof PaymentError
+          ? err.message
+          : timedOut
+            ? 'Taking too long. Please try again.'
+            : 'Failed to generate invoice';
+      setError(message);
       setIsProcessing(false);
     } finally {
       window.clearTimeout(timeoutId);

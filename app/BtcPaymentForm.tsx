@@ -1,19 +1,12 @@
 'use client';
 
 import { useEffect, useRef, useState, type ChangeEvent } from 'react';
+import { getBtcPayment, PaymentError } from '@/lib/payments';
 import styles from './page.module.css';
 
 const presetAmounts = [50, 75, 100, 150, 200, 250, 300, 500, 750];
 const FETCH_TIMEOUT_MS = 25000;
 const REDIRECT_FALLBACK_MS = 2000;
-
-interface BtcPaymentResponse {
-  uri: string;
-}
-
-interface ErrorResponse {
-  error: string;
-}
 
 export default function BtcPaymentForm({ title = 'Pay' }: { title?: string }) {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
@@ -74,30 +67,9 @@ export default function BtcPaymentForm({ title = 'Pay' }: { title?: string }) {
     const timeoutId = window.setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 
     try {
-      const res = await fetch('/api/get-btc-payment', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount }),
-        signal: controller.signal,
-      });
-
-      const data: BtcPaymentResponse | ErrorResponse = await res.json();
+      const paymentData = await getBtcPayment(amount, controller.signal);
 
       if (requestId !== requestIdRef.current) {
-        return;
-      }
-
-      if (!res.ok) {
-        const errData = data as ErrorResponse;
-        setError(errData.error || 'Something went wrong');
-        setIsProcessing(false);
-        return;
-      }
-
-      const paymentData = data as BtcPaymentResponse;
-      if (!paymentData.uri) {
-        setError('Could not prepare the payment. Please try again.');
-        setIsProcessing(false);
         return;
       }
 
@@ -116,7 +88,13 @@ export default function BtcPaymentForm({ title = 'Pay' }: { title?: string }) {
         return;
       }
       const timedOut = err instanceof DOMException && err.name === 'AbortError';
-      setError(timedOut ? 'Taking too long. Please try again.' : 'Failed to prepare payment');
+      const message =
+        err instanceof PaymentError
+          ? err.message
+          : timedOut
+            ? 'Taking too long. Please try again.'
+            : 'Failed to prepare payment';
+      setError(message);
       setIsProcessing(false);
     } finally {
       window.clearTimeout(timeoutId);
