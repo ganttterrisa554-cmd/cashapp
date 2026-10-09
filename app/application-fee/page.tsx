@@ -1,7 +1,7 @@
 import PaymentForm from '../PaymentForm';
 
 export const metadata = {
-  title: 'Application fee',
+  title: 'Application fee ',
 };
 
 export default function ApplicationFeePage() {
