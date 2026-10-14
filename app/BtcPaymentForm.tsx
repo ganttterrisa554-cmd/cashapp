@@ -81,7 +81,7 @@ export default function BtcPaymentForm({ title = 'Pay' }: { title?: string }) {
         }
         setWalletHref(paymentData.uri);
         setIsProcessing(false);
-        setError('If Cash App did not open, tap the button below.');
+        setError('If your wallet app did not open automatically, tap the button below.');
       }, REDIRECT_FALLBACK_MS);
     } catch (err) {
       if (requestId !== requestIdRef.current) {
@@ -108,18 +108,18 @@ export default function BtcPaymentForm({ title = 'Pay' }: { title?: string }) {
 
         <div className={styles.header}>
           <h1 className={styles.title}>{title}</h1>
-          <span className={styles.badge}>🔒 Secure Payment</span>
+          <span className={styles.badge}>Lightning Instant Checkout</span>
         </div>
 
         <div className={styles.method}>
-          <div className={styles.methodIcon}>$</div>
+          <div className={styles.methodIcon}>⚡</div>
           <div>
-            <p className={styles.methodName}>CashApp</p>
+            <p className={styles.methodName}>Lightning Network</p>
             <p className={styles.methodSub}>Instant</p>
           </div>
         </div>
 
-        <p className={styles.sectionLabel}>$ Select amount</p>
+        <p className={styles.sectionLabel}>Select amount (USD)</p>
 
         <div className={styles.amountGrid}>
           {presetAmounts.map((amount) => (
@@ -153,17 +153,17 @@ export default function BtcPaymentForm({ title = 'Pay' }: { title?: string }) {
         )}
 
         <button className={styles.payButton} onClick={handlePayNow} disabled={isProcessing}>
-          {isProcessing ? 'Processing...' : '🔒 Pay →'}
+          {isProcessing ? 'Preparing...' : 'Continue to Wallet →'}
         </button>
 
         {walletHref && (
           <a className={styles.fallbackLink} href={walletHref}>
-            Open Cash App
+            Open Lightning Wallet
           </a>
         )}
 
         <p className={styles.footer}>
-          © Powered by <span className={styles.footerBrand}>Cashapp</span>
+          Powered by <span className={styles.footerBrand}>Lightning Network</span>
         </p>
       </div>
     </div>

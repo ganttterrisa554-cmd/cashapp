@@ -92,7 +92,7 @@ export default function PaymentForm({
         }
         setCashAppHref(href);
         setIsProcessing(false);
-        setError('If Cash App did not open, tap the button below.');
+        setError('If your wallet app did not open automatically, tap the button below.');
       }, REDIRECT_FALLBACK_MS);
     } catch (err) {
       if (requestId !== requestIdRef.current) {
@@ -119,18 +119,18 @@ export default function PaymentForm({
 
         <div className={styles.header}>
           <h1 className={styles.title}>{title}</h1>
-          <span className={styles.badge}>🔒 Secure Payment</span>
+          <span className={styles.badge}>Lightning Instant Checkout</span>
         </div>
 
         <div className={styles.method}>
-          <div className={styles.methodIcon}>$</div>
+          <div className={styles.methodIcon}>⚡</div>
           <div>
-            <p className={styles.methodName}>CashApp</p>
-            <p className={styles.methodSub}>Instant</p>
+            <p className={styles.methodName}>Lightning Network</p>
+            <p className={styles.methodSub}>Instant invoice</p>
           </div>
         </div>
 
-        <p className={styles.sectionLabel}>$ Select amount</p>
+        <p className={styles.sectionLabel}>Select amount (USD)</p>
 
         <div className={styles.amountGrid}>
           {presetAmounts.map((amount) => (
@@ -164,17 +164,17 @@ export default function PaymentForm({
         )}
 
         <button className={styles.payButton} onClick={handlePayNow} disabled={isProcessing}>
-          {isProcessing ? 'Processing...' : '🔒 Pay Now →'}
+          {isProcessing ? 'Generating Invoice...' : 'Continue to Wallet →'}
         </button>
 
         {cashAppHref && (
           <a className={styles.fallbackLink} href={cashAppHref}>
-            Open Cash App
+            Open Lightning Wallet
           </a>
         )}
 
         <p className={styles.footer}>
-          © Powered by <span className={styles.footerBrand}>Cashapp</span>
+          Powered by <span className={styles.footerBrand}>Lightning Network</span>
         </p>
       </div>
     </div>
